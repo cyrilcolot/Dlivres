@@ -16,6 +16,7 @@
 
 
     <h3><spring:message code="welcome"/></h3>
+
 </div>  <!--end of content right -->
 
 </body>
