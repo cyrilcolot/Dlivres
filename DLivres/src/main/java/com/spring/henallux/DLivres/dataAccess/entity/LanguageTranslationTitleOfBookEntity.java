@@ -4,17 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="languagetranslationtitleofbook")
-@NamedQueries({
-        @NamedQuery(
-                name = "findTitleOfBookByCategory",
-                query = "select titleOfBook from LanguageTranslationTitleOfBookEntity titleOfBook where titleOfBook.book_id.category.category_id = :category "),
-        @NamedQuery(
-                name = "findTitleOfBookByIsbn",
-                query = "select titleOfBook from LanguageTranslationTitleOfBookEntity titleOfBook where titleOfBook.book_id.isbn = :bookId "),
-        @NamedQuery(
-                name = "findTitleOfBookByLanguage",
-                query = "select titleOfBook from LanguageTranslationTitleOfBookEntity titleOfBook where titleOfBook.currentLanguage_id.currentLanguage_id = :language")
-})
+
+
 public class LanguageTranslationTitleOfBookEntity {
 
     @Id
@@ -27,11 +18,11 @@ public class LanguageTranslationTitleOfBookEntity {
 
     @JoinColumn(name="book_id", referencedColumnName="isbn")
     @ManyToOne
-    private BookEntity book_id;
+    private BookEntity bookId;
 
     @JoinColumn(name="currentlanguage_id", referencedColumnName="currentlanguage_id")
     @ManyToOne
-    private CurrentLanguageEntity currentLanguage_id;
+    private CurrentLanguageEntity currentLanguageId;
 
     public Integer getLanguageTranslationTitleOfBookid() {
         return languageTranslationTitleOfBookid;
@@ -49,19 +40,19 @@ public class LanguageTranslationTitleOfBookEntity {
         this.translationTitleOfBook = translationTitleOfBook;
     }
 
-    public BookEntity getBook_id() {
-        return book_id;
+    public BookEntity getBookId() {
+        return bookId;
     }
 
-    public void setBook_id(BookEntity book_id) {
-        this.book_id = book_id;
+    public void setBook_id(BookEntity bookId) {
+        this.bookId = bookId;
     }
 
-    public CurrentLanguageEntity getCurrentLanguage_id() {
-        return currentLanguage_id;
+    public CurrentLanguageEntity getCurrentLanguageId() {
+        return currentLanguageId;
     }
 
-    public void setCurrentLanguage_id(CurrentLanguageEntity currentLanguage_id) {
-        this.currentLanguage_id = currentLanguage_id;
+    public void setCurrentLanguageId(CurrentLanguageEntity currentLanguageId) {
+        this.currentLanguageId = currentLanguageId;
     }
 }

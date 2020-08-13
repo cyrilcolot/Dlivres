@@ -3,7 +3,7 @@ package com.spring.henallux.DLivres.Model;
 public class LanguageTranslationTitleOfBook {
     private Integer languageTranslationTitleOfBook_id;
     private String translationTitleOfBook;
-    private CurrentLanguage currentLanguage_id;
+    private CurrentLanguage currentLanguageId;
     private Book book_id;
 
     public LanguageTranslationTitleOfBook(){}
@@ -19,11 +19,11 @@ public class LanguageTranslationTitleOfBook {
     public void setTranslationTitleOfBook(String translationTitleOfBook) {
         this.translationTitleOfBook = translationTitleOfBook;
     }
-    public CurrentLanguage getCurrentLanguage_id() {
-        return currentLanguage_id;
+    public CurrentLanguage getCurrentLanguageId() {
+        return currentLanguageId;
     }
-    public void setCurrentLanguage_id(CurrentLanguage currentLanguage_id) {
-        this.currentLanguage_id = currentLanguage_id;
+    public void setCurrentLanguageId(CurrentLanguage currentLanguageId) {
+        this.currentLanguageId = currentLanguageId;
     }
     public Book getBook_id() {
         return book_id;

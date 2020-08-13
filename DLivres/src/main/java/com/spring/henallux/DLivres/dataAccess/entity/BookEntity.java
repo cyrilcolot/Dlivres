@@ -5,9 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="book")
-@NamedQuery(
-        name = "findBooksByCategory",
-        query = "select book from BookEntity book where book.category.category_id = :category")
+
 public class BookEntity {
 
     @Id
@@ -54,7 +52,7 @@ public class BookEntity {
     @ManyToOne
     private AuthorEntity author;
 
-    @JoinColumn(name="publishinghouse_pb_id", referencedColumnName="publishinghouse_id")
+    @JoinColumn(name="publishinghouse_pb__id", referencedColumnName="publishinghouse_id")
     @ManyToOne
     private PublishingHouseEntity publishingHouse;
 

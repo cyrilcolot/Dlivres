@@ -2,14 +2,16 @@ package com.spring.henallux.DLivres.Model;
 
 public class CurrentLanguage {
 
-    private String currentLanguage_id;
+    private String currentLanguageId;
     private String nameLanguage;
+    
 
-    public String getCurrentLanguage_id() {
-        return currentLanguage_id;
+    public String getCurrentLanguageId() {
+        return currentLanguageId;
     }
-    public void setCurrentLanguage_id(String currentLanguage_id) {
-        this.currentLanguage_id = currentLanguage_id;
+    public void setCurrentLanguageId(String currentLanguage_id) {
+
+        this.currentLanguageId = currentLanguage_id;
     }
     public String getNameLanguage() {
         return nameLanguage;
@@ -17,6 +19,7 @@ public class CurrentLanguage {
     public void setNameLanguage(String nameLanguage) {
         this.nameLanguage = nameLanguage;
     }
+
 
 
 }

@@ -6,6 +6,8 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 
 @Component
 public class ProviderConverter {
@@ -61,14 +63,30 @@ public class ProviderConverter {
         return mapper.map(customerEntity,Customer.class);
     }
 
-    public LanguageTranslationTitleOfBookEntity LanguageTranslationTitleOfBookToLanguageTranslationTitleOfBookEntity(LanguageTranslationTitleOfBook languageTranslationTitleOfBook)
+    public LanguageTranslationTitleOfBookEntity languageTranslationTitleOfBookToLanguageTranslationTitleOfBookEntity(LanguageTranslationTitleOfBook languageTranslationTitleOfBook)
     {
         return mapper.map(languageTranslationTitleOfBook,LanguageTranslationTitleOfBookEntity.class);
     }
 
-    public LanguageTranslationTitleOfBook languageTranslationTitleOfBookEntityToanguageTranslationTitleOfBook(LanguageTranslationTitleOfBookEntity languageTranslationTitleOfBookEntity)
+    public LanguageTranslationTitleOfBook languageTranslationTitleOfBookEntityToLanguageTranslationTitleOfBook(LanguageTranslationTitleOfBookEntity languageTranslationTitleOfBookEntity)
     {
         return mapper.map(languageTranslationTitleOfBookEntity,LanguageTranslationTitleOfBook.class);
+    }
+
+    public LanguageTranslationWordingOfCategoryEntity languageTranslationWordingOfCategoryToLanguageTranslationWordingOfCategoryEntity(LanguageTranslationWordingOfCategory languageTranslationWordingOfCategory )
+    {
+        return mapper.map(languageTranslationWordingOfCategory,LanguageTranslationWordingOfCategoryEntity.class);
+    }
+
+    public LanguageTranslationWordingOfCategory languageTranslationWordingOfCategoryEntityToLanguageTranslationWordingOfCategory(LanguageTranslationWordingOfCategoryEntity languageTranslationWordingOfCategoryEntity )
+    {
+        LanguageTranslationWordingOfCategory languageTranslationWordingOfCategory = new LanguageTranslationWordingOfCategory();
+        languageTranslationWordingOfCategory.setLanguageTranslationWordingOfCategory_id(languageTranslationWordingOfCategoryEntity.getLanguageTranslationWordingOfCategory_id());
+        languageTranslationWordingOfCategory.setTranslationWordingOfCategory(languageTranslationWordingOfCategoryEntity.getTranslationWordingOfCategory());
+        languageTranslationWordingOfCategory.setCategory_id(categoryEntityToCategory(languageTranslationWordingOfCategoryEntity.getCategory_id()));
+        languageTranslationWordingOfCategory.setCurrentLanguageId(currentLanguageEntityToCurrentLanguage(languageTranslationWordingOfCategoryEntity.getCurrentLanguageId()));
+
+        return languageTranslationWordingOfCategory;
     }
 
     public OrderCustomerEntity orderCustomerToOrderCustomerEntity(OrderCustomer orderCustomer)

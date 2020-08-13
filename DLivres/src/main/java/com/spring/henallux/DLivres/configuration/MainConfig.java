@@ -4,6 +4,8 @@ package com.spring.henallux.DLivres.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 import org.springframework.validation.DefaultMessageCodesResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.Locale;
 
 @Configuration
@@ -55,4 +58,6 @@ public class MainConfig implements WebMvcConfigurer {
         interceptor.setParamName("locale");
         registry.addInterceptor(interceptor);
     }
+
+
 }

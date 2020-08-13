@@ -16,7 +16,7 @@ public class LanguageTranslationWordingOfCategoryEntity {
 
     @JoinColumn(name="currentlanguage_id", referencedColumnName="currentlanguage_id")
     @ManyToOne
-    private CurrentLanguageEntity currentLanguage_id;
+    private CurrentLanguageEntity currentLanguageId;
 
     @JoinColumn(name="category_id", referencedColumnName="category_id")
     @ManyToOne
@@ -41,12 +41,12 @@ public class LanguageTranslationWordingOfCategoryEntity {
         this.translationWordingOfCategory = translationWordingOfCategory;
     }
 
-    public CurrentLanguageEntity getCurrentLanguage_id() {
-        return currentLanguage_id;
+    public CurrentLanguageEntity getCurrentLanguageId() {
+        return currentLanguageId;
     }
 
-    public void setCurrentLanguage_id(CurrentLanguageEntity currentLanguage_id) {
-        this.currentLanguage_id = currentLanguage_id;
+    public void setCurrentLanguageId(CurrentLanguageEntity currentLanguageId) {
+        this.currentLanguageId = currentLanguageId;
     }
 
     public CategoryEntity getCategory_id() {

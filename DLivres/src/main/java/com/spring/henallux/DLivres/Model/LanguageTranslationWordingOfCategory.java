@@ -1,12 +1,17 @@
 package com.spring.henallux.DLivres.Model;
 
 public class LanguageTranslationWordingOfCategory {
+
+
+
     private Integer languageTranslationWordingOfCategory_id;
     private String translationWordingOfCategory;
-    private CurrentLanguage currentLanguage_id;
+    private CurrentLanguage currentLanguageId;
     private Category category_id;
 
+
     public LanguageTranslationWordingOfCategory(){}
+
 
     public Integer getLanguageTranslationWordingOfCategory_id() {
         return languageTranslationWordingOfCategory_id;
@@ -24,13 +29,14 @@ public class LanguageTranslationWordingOfCategory {
         this.translationWordingOfCategory = translationWordingOfCategory;
     }
 
-    public CurrentLanguage getCurrentLanguage_id() {
-        return currentLanguage_id;
+    public CurrentLanguage getCurrentLanguageId() {
+        return currentLanguageId;
     }
 
-    public void setCurrentLanguage_id(CurrentLanguage currentLanguage_id) {
-        this.currentLanguage_id = currentLanguage_id;
+    public void setCurrentLanguageId(CurrentLanguage currentLanguageId) {
+        this.currentLanguageId = currentLanguageId;
     }
+
 
     public Category getCategory_id() {
         return category_id;

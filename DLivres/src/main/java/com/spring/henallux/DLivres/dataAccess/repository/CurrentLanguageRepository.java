@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface CurrentLanguageRepository extends JpaRepository<CurrentLanguageEntity,String> {
 
+  CurrentLanguageEntity findByCurrentLanguageId(String language);
 }

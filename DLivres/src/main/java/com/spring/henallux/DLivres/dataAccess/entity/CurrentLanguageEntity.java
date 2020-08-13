@@ -11,17 +11,17 @@ public class CurrentLanguageEntity {
 
     @Id
     @Column(name="currentlanguage_id")
-    private String currentLanguage_id;
+    private String currentLanguageId;
 
     @Column(name="namelanguage")
     private String nameLanguage;
 
-    public String getCurrentLanguage_id() {
-        return currentLanguage_id;
+    public String getCurrentLanguageId() {
+        return currentLanguageId;
     }
 
-    public void setCurrentLanguage_id(String currentLanguage_id) {
-        this.currentLanguage_id = currentLanguage_id;
+    public void setCurrentLanguageId(String currentLanguageId) {
+        this.currentLanguageId = currentLanguageId;
     }
 
     public String getNameLanguage() {
