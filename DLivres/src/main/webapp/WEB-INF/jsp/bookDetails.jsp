@@ -25,6 +25,7 @@
             <li><spring:message code="width"/>: ${book.getBookId().getWidth()}</li>
             <li><spring:message code="thickness"/>: ${book.getBookId().getThickness()}</li>
             <li><spring:message code="weight"/>: ${book.getBookId().getWeight()}</li>
+
         </c:if>
         <c:if test="${book.getBookId().getTypeOfBook().equals(\"E-book\")}" >
             <li><spring:message code="fileSize"/>: ${book.getBookId().getFileSize()}</li>

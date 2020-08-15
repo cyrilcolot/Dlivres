@@ -12,14 +12,15 @@ import com.spring.henallux.DLivres.dataAccess.dao.LanguageTranslationTitleOfBook
 import com.spring.henallux.DLivres.dataAccess.util.ProviderConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -82,5 +83,53 @@ public class IndexController {
         return "integrated:index";
     }
 
+    @RequestMapping(value="/LogIn",method=RequestMethod.POST)
+    public String attemptLogIn (Model model,  @ModelAttribute(value="connectionForm") ConnectionForm formConnection, Locale locale) {
 
+
+        try {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            Customer user = customerDAO.getCustomerByUserName(formConnection.getUserName());
+            if (encoder.matches(formConnection.getPassword(), user.getPassword()))
+
+            {
+                model.addAttribute(CURRENTUSER, user);
+                return "redirect:/index";
+            }
+            return "integrated:index";
+        }
+        catch (Exception e)
+        {
+            model.addAttribute("errorMessage", e.getMessage());
+/*
+            model.addAttribute("errorLogin",true);
+            model.addAttribute("connectionForm", new ConnectionForm());
+            model.addAttribute("MessageToDisplay", messageSource.getMessage("title",null,locale));
+            ArrayList<LanguageTranslationWordingOfCategory> allCategories = new ArrayList<LanguageTranslationWordingOfCategory>(categoryDAO.getAllCategories());
+            ArrayList<LanguageTranslationWordingOfCategory> categoriesToDisplay = new ArrayList<LanguageTranslationWordingOfCategory>();
+
+            for (LanguageTranslationWordingOfCategory languageTranslationWordingOfCategory : allCategories)
+            {
+                if(languageTranslationWordingOfCategory.getCurrentLanguageId().getCurrentLanguageId().equals(locale.toString()))
+                {
+                    categoriesToDisplay.add(languageTranslationWordingOfCategory);
+                }
+            }
+            model.addAttribute("categories", categoriesToDisplay);
+
+            if(!model.containsAttribute("cart"))
+            {
+                HashMap<String , CommandLine> commandLine = new HashMap<>();
+                model.addAttribute(CART, commandLine);
+            }
+*/
+            return "integrated:index";
+        }
+    }
+
+    @RequestMapping(value="/logOut", method=RequestMethod.GET)
+    public String disconnect(Model model, SessionStatus status){
+        status.setComplete();
+        return "redirect:/index";
+    }
 }

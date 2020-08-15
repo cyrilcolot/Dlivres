@@ -9,7 +9,7 @@ public class OrderCustomerEntity {
 
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="ordercustomer_id")
     private Integer orderCustomer_id;
 

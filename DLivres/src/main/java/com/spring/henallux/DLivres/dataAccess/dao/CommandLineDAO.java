@@ -16,10 +16,10 @@ public class CommandLineDAO {
     @Autowired
     private ProviderConverter providerConverter;
 
-    public void addCommandeLine(CommandLine commandLine)
+    public void addCommandeLine(CommandLineEntity commandLineEntity)
     {
-        CommandLineEntity commandLineEntity = providerConverter.commandLineToCommandLineEntity(commandLine);
-        commandLineEntity = commandLineRepository.save(commandLineEntity);
+
+        commandLineRepository.save(commandLineEntity);
     }
 }
 

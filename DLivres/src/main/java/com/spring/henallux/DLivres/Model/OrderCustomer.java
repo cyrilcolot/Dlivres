@@ -28,4 +28,6 @@ public class OrderCustomer {
     public void setCustomer_id(Customer customer) {
         this.customer_id = customer;
     }
+
+
 }

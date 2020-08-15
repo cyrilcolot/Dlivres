@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class CommandLineEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="commandline_id")
     private Integer commandLine_id;
 

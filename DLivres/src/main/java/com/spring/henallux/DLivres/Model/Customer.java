@@ -15,7 +15,15 @@ public class Customer {
     private String city;
     private String country;
     private String password;
+    private String userName;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public Customer(){}
 
@@ -94,4 +102,6 @@ public class Customer {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

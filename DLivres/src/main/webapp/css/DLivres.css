@@ -75,9 +75,9 @@ form #buy_now_button {
 }
 
 #templatemo_container{
-    width: 960px;
+    width: 1200px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 px;
     background: #1c1c1b url(../images/templatemo_bg.jpg) repeat-y;
 }
 
@@ -86,8 +86,8 @@ form #buy_now_button {
 
 #templatemo_menu {
     clear: both;
-    width: 960px;
-    height: 45px;
+    width: 1200px;
+    height: 50px;
     background: url(../images/templatemo_menu_bg.jpg) no-repeat;
 }
 
@@ -139,7 +139,7 @@ form #buy_now_button {
 /* header */
 #templatemo_header {
     clear: both;
-    width: 960px;
+    width: 1200px;
     height: 285px;
     padding: 0;
     margin: 0;
@@ -188,7 +188,7 @@ form #buy_now_button {
 /* content */
 #templatemo_content {
     clear: both;
-    width: 920px;
+    width: 1200px;
     padding: 0 20px;
 }
 
@@ -319,7 +319,7 @@ form #buy_now_button {
 /* footer */
 #templatemo_footer {
     clear: both;
-    width: 960px;
+    width: 1200px;
     padding: 20px 0px 20px 0;
     text-align: center;
     border-top: 1px solid #25211e;
@@ -334,7 +334,18 @@ form #buy_now_button {
 /* end of footer */
 
 /* Table */
-
+.articleBasket{
+    color: white;
+    text-align: center;
+}
+.articleBasket a{
+    text-decoration: none;
+    color: white;
+}
+.articleBasket a:hover{
+    text-decoration: none;
+    color: saddlebrown;
+}
 
 #cart {border-collapse: collapse;}
 

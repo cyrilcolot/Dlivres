@@ -18,9 +18,11 @@
     </script>
 </head>
 <body>
-<form:form id="formInscription" method="POST" action="/bookstore/inscription/send" modelAttribute="inscriptionForm">
+<form:form id="formInscription" method="POST" action="/DLivres/inscription/send" modelAttribute="inscriptionForm">
     <h1>Inscription</h1>
     <ul>
+        <li><form:label for="userName" path="userName"><spring:message code="userName"/></form:label>
+            <form:input path="userName" id="userName"></form:input></li>
         <li><form:label for="email" path="email"><spring:message code="email"/></form:label>
             <form:input id="email" path="email"></form:input><c:if test="${errorEmail != null}"><spring:message code="errorEmail"/></c:if></li>
         <li><c:if test="${userAlreadyExist != null}"><spring:message code="userAlreadyExist"/></c:if></li>
@@ -30,6 +32,7 @@
             <form:input id="firstName" path="firstName"></form:input><c:if test="${errorFirstName != null}"><spring:message code="errorFirstName"/></c:if></li>
         <li><form:label for="phoneNumber" path="phoneNumber"><spring:message code="phoneNumber"/></form:label>
             <form:input id="phoneNumber" path="phoneNumber"></form:input></li>
+
         <li><form:label for="birthDate" path="birthDate"><spring:message code="birthDate"/></form:label>
             <form:input id="datepicker" path="birthDate"></form:input><c:if test="${errorBirthDate != null}"><spring:message code="errorBirthDate"/></c:if></li>
         <li><form:label for="street" path="street"><spring:message code="street"/></form:label>

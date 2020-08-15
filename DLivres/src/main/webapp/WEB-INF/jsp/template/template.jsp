@@ -8,7 +8,6 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
     <link type="text/css" href="<spring:url value = '/css/DLivres.css' />" rel="stylesheet" >
 </head>
 <body>
@@ -20,7 +19,7 @@
             <li><a href="/DLivres/inscription"><spring:message code="inscription"/></a></li>
             <li><a href="/DLivres/cart"><img src='<spring:url value="/images/cart.png"/>' alt="image" style="width:35px;height:35px;" /></a></li>
             <c:if test="${currentUser == null }">
-                <form:form id="formSignIn" method="POST" action="/bookstore/index/LogIn" modelAttribute="connectionForm">
+                <form:form id="formSignIn" method="POST" action="/DLivres/index/LogIn" modelAttribute="connectionForm">
                     <li><form:label for="userName" path="userName"><spring:message code="userName"/></form:label>
                         <form:input id="userName" path="userName"></form:input></li>
                     <li><form:label for="password" path="password"><spring:message code="passwordTmp"/></form:label>
@@ -32,13 +31,14 @@
 
             <c:if test="${currentUser != null }">
                 <li><a href= "/DLivres/index/logOut"><spring:message code="logout"/></a></li>
-                <li>${currentUser.getEmail()}</li>
+                <li>${currentUser.getUserName()}</li>
             </c:if>
             <li><spring:url var="localeFr" value=""><spring:param name="locale" value="fr" /></spring:url>
                 <a href ="${localeFr}"><img src='<spring:url value="/images/drapeau-francais.png"/>' alt="image" style="width:30px;height:30px;" /></a>
                 <spring:url var="localeEn" value=""><spring:param name="locale" value="en" /></spring:url>
                 <a href ="${localeEn}"><img src='<spring:url value="/images/drapeau-anglais.png"/>'  alt="image" style="width:30px;height:30px;" /></a>
-                <c:if test="${errorLogin != null}"><spring:message code="errorLogin"/></c:if>	</li>
+               	</li>
+            <li> <c:if test="${errorLogin != null}"><spring:message code="errorLogin"/></c:if></li>
         </ul>
 
     </div>

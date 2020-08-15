@@ -2,20 +2,17 @@ package com.spring.henallux.DLivres.controller;
 
 import com.spring.henallux.DLivres.Model.*;
 import com.spring.henallux.DLivres.Service.OrderCustomerService;
-import com.spring.henallux.DLivres.dataAccess.dao.CategoryDAO;
-import com.spring.henallux.DLivres.dataAccess.dao.CommandLineDAO;
-import com.spring.henallux.DLivres.dataAccess.dao.LanguageTranslationTitleOfBookDAO;
-import com.spring.henallux.DLivres.dataAccess.dao.OrderCustomerDAO;
+import com.spring.henallux.DLivres.dataAccess.dao.*;
+import com.spring.henallux.DLivres.dataAccess.entity.CommandLineEntity;
+import com.spring.henallux.DLivres.dataAccess.entity.OrderCustomerEntity;
+import com.spring.henallux.DLivres.dataAccess.util.ProviderConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/cart")
@@ -35,19 +32,18 @@ public class CartController {
     private OrderCustomerDAO orderCustomerDAO = new OrderCustomerDAO();
     @Autowired
     private OrderCustomerService orderCustomerService = new OrderCustomerService();
-
+    @Autowired
+    private ProviderConverter providerConverter;
+    @Autowired
+    private CustomerDAO customerDAO;
+    private double totalPrice;
 
     @RequestMapping(method= RequestMethod.GET)
     public String home(Model model, Locale locale, @ModelAttribute(value="cart") HashMap<Integer, CommandLine> hashMapCart)
     {
 
-        double totalPrice;
-
         totalPrice = orderCustomerService.getTotalOrder(hashMapCart);
         model.addAttribute("totalPrice", totalPrice);
-
-
-
         ArrayList<LanguageTranslationWordingOfCategory> allCategories = new ArrayList<LanguageTranslationWordingOfCategory>(categoryDAO.getAllCategories());
         ArrayList<LanguageTranslationWordingOfCategory> categoriesToDisplay = new ArrayList<LanguageTranslationWordingOfCategory>();
         model.addAttribute("connectionForm", new ConnectionForm());
@@ -61,11 +57,9 @@ public class CartController {
             }
         }
 
-
         model.addAttribute("categories", categoriesToDisplay);
         model.addAttribute("books", languageTranslationTitleOfBookDAO.getTitleOfBookByLanguage(locale.toString()));
 
-        //si panier existe si pas ajouter modele
         if(!model.containsAttribute("cart"))
         {
             HashMap<String , CommandLine> commandLine = new HashMap<String, CommandLine>();
@@ -82,7 +76,7 @@ public class CartController {
         hashMapCart.remove(bookId);
         return "redirect:/cart";
     }
-
+/*
     @RequestMapping(value="/send",method=RequestMethod.GET)
     public String confirmCommand (Model model, @ModelAttribute(value="cart") HashMap<Integer, CommandLine> hashMapCart, @ModelAttribute(value="currentUser") Customer customer)
     {
@@ -98,6 +92,18 @@ public class CartController {
         hashMapCart.clear();
         return "redirect:/index";
     }
+
+     @RequestMapping(value = "/validation", method = RequestMethod.GET)
+    public String confirmOder(Model model, Locale locale, @ModelAttribute(value = "cart") HashMap<Integer,CommandLine> cart,@ModelAttribute(value = "currentUser")Customer customer)
+    {
+        totalPrice = orderCustomerService.getTotalOrder(cart);
+        model.addAttribute("currentUser", customer);
+        model.addAttribute("totalPrice", totalPrice);
+        return "integrated:confirmCommand";
+    }
+
+
+*/
     @RequestMapping(value="/confirm", method=RequestMethod.GET)
     public String confirm (Model model, Locale locale)
     {
@@ -126,5 +132,34 @@ public class CartController {
 
         return "integrated:confirmCommand";
     }
+
+
+
+    @RequestMapping(value = "/orderCompleted",method = RequestMethod.GET)
+    public String orderCompleted(Model model,Locale locale,@ModelAttribute(value = "currentUser")Customer customer, @ModelAttribute(value = "cart")HashMap<Integer,CommandLine> cart)
+    {
+        OrderCustomerEntity orderCustomerEntity = new OrderCustomerEntity();
+        orderCustomerEntity.setCustomer_id(providerConverter.customerToCustomerEntity(customer));
+
+        orderCustomerDAO.addOrderCustomer(orderCustomerEntity);
+        CommandLineEntity commandLineEntity;
+
+        for(CommandLine commandLine : cart.values())
+        {
+            commandLineEntity = new CommandLineEntity();
+            commandLineEntity.setOrderCustomer(orderCustomerEntity);
+            commandLineEntity.setBook(providerConverter.bookToBookEntity(commandLine.getBook()));
+            commandLineEntity.setQuantity(commandLine.getQuantity());
+
+            commandLineDAO.addCommandeLine(commandLineEntity);
+            
+
+        }
+        cart.clear();
+        return "redirect:/orderCompleted";
+    }
+
+
+
 
 }

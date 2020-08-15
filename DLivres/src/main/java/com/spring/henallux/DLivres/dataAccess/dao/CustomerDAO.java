@@ -17,9 +17,9 @@ public class CustomerDAO {
     private ProviderConverter providerConverter;
 
 
-    public Customer getCustomerByEmail(String email)
+    public Customer getCustomerByUserName(String userName)
     {
-        CustomerEntity customerEntity = customerRepository.findByEmail(email);
+        CustomerEntity customerEntity = customerRepository.findByUserName(userName);
 
 
         Customer memberModel = providerConverter.customerEntityToCustomer(customerEntity);
@@ -27,13 +27,11 @@ public class CustomerDAO {
     }
 
 
-    public void addCustomer(Customer customer)
+    public boolean save(CustomerEntity customerEntity)
     {
-        CustomerEntity customerEntity = providerConverter.customerToCustomerEntity(customer);
-
-        CustomerEntity en = new CustomerEntity();
-        en = customerRepository.findByEmail(customerEntity.getEmail());
-        if (en == null)
-            customerEntity = customerRepository.save(customerEntity);
+        if(customerRepository.save(customerEntity)!=null)
+            return true;
+        else
+            return false;
     }
 }

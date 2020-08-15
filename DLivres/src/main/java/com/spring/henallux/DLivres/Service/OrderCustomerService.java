@@ -23,9 +23,6 @@ public class OrderCustomerService {
 
         }
 
-
-
-
         if (cart.values().size()>=4)
             totalPrice *= 0.95;
 

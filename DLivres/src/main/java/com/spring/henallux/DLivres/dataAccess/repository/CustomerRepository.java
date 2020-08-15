@@ -11,4 +11,5 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer
 
     CustomerEntity findByUserName(String UserName);
     CustomerEntity findByEmail(String email);
+    CustomerEntity save(CustomerEntity customerEntity);
 }
