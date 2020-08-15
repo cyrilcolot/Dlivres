@@ -14,18 +14,25 @@ public class OrderCustomerService {
     public double getTotalOrder (HashMap<Integer, CommandLine> cart)
     {
         double totalPrice = 0;
-        double price = 0;
+
 
         for (HashMap.Entry<Integer, CommandLine> commandLine : cart.entrySet()) {
 
-            price = commandLine.getValue().getBook().getPrice();
+            totalPrice += commandLine.getValue().getBook().getPrice();
 
 
         }
 
-        totalPrice = (Math.floor(totalPrice * 100) / 100);
 
+
+
+        if (cart.values().size()>=4)
+            totalPrice *= 0.95;
+
+        totalPrice = (Math.floor(totalPrice * 100) / 100);
         return totalPrice;
+
+
     }
 
     public double getTotalPrice()

@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -107,11 +104,22 @@ public class LanguageTranslationTitleOfBookDAO {
 
 
 
-    public LanguageTranslationTitleOfBook getTitleOfBookByIsbn (Integer idBook)
+    public LanguageTranslationTitleOfBook getTitleOfBookByIsbn (Integer idBook, Locale locale)
     {
+        ArrayList<LanguageTranslationTitleOfBookEntity> languageTranslationTitleOfBookEntities = new ArrayList<>();
+        languageTranslationTitleOfBookEntities = languageTranslationTitleOfBookRepository.findByBookId_Isbn(idBook);
 
-        LanguageTranslationTitleOfBookEntity languageTranslationTitleOfBookEntity = languageTranslationTitleOfBookRepository.findByBookId(idBook);
-        return providerConverter.languageTranslationTitleOfBookEntityToLanguageTranslationTitleOfBook(languageTranslationTitleOfBookEntity);
+        LanguageTranslationTitleOfBook languageTranslationTitleOfBooks = null;
+
+        for(LanguageTranslationTitleOfBookEntity title :languageTranslationTitleOfBookEntities)
+        {
+            if(title.getCurrentLanguageId().getCurrentLanguageId().equals(locale.toString()))
+                languageTranslationTitleOfBooks = providerConverter.languageTranslationTitleOfBookEntityToLanguageTranslationTitleOfBook(title);
+
+        }
+
+        return languageTranslationTitleOfBooks;
+
 
     }
 

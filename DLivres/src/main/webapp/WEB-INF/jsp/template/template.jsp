@@ -18,11 +18,11 @@
         <ul>
             <li><a href="/DLivres/index" class="current"><spring:message code="index"/></a></li>
             <li><a href="/DLivres/inscription"><spring:message code="inscription"/></a></li>
-            <li><a href ="/DLivrescart"><img src='<spring:url value="/images/cart.png"/>' alt="image" style="width:35px;height:35px;" /></a></li>
+            <li><a href="/DLivres/cart"><img src='<spring:url value="/images/cart.png"/>' alt="image" style="width:35px;height:35px;" /></a></li>
             <c:if test="${currentUser == null }">
                 <form:form id="formSignIn" method="POST" action="/bookstore/index/LogIn" modelAttribute="connectionForm">
-                    <li><form:label for="email" path="email"><spring:message code="emailTmp"/></form:label>
-                        <form:input id="email" path="email"></form:input></li>
+                    <li><form:label for="userName" path="userName"><spring:message code="userName"/></form:label>
+                        <form:input id="userName" path="userName"></form:input></li>
                     <li><form:label for="password" path="password"><spring:message code="passwordTmp"/></form:label>
                         <form:input type="password" id="password" path="password"></form:input></li>
                     <li><form:button id="sf_submit"><spring:message code="loginTmp"/></form:button></li>

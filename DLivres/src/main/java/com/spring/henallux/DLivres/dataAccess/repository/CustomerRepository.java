@@ -9,5 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer> {
 
+    CustomerEntity findByUserName(String UserName);
     CustomerEntity findByEmail(String email);
 }

@@ -16,9 +16,9 @@
             <h1>${book.getTranslationTitleOfBook()}</h1>
             <img src="../images/${book.getTranslationTitleOfBook()}.jpg" alt="image" style="width:100px;height:140px;" />
             <div class="product_info">
-                <p>${book.getBook_id().getSummary().subSequence(0, 75)}...</p>
-                <h3> ${book.getBook_id().getPrice()} € </h3>
-                <div class="detail_button"><a href="/DLivres/bookDetails/${book.getBook_id().getIsbn()}">Detail</a></div>
+                <p>${book.getBookId().getSummary().subSequence(0, 75)}...</p>
+                <h3> ${book.getBookId().getPrice()} € </h3>
+                <div class="detail_button"><a href="/DLivres/bookDetails/${book.getBookId().getIsbn()}">Detail</a></div>
             </div>
             <div class="cleaner">&nbsp;</div>
         </div>

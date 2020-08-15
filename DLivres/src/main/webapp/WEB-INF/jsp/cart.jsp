@@ -19,7 +19,7 @@
         <tr>
 
             <td><c:forEach items="${books}" var="book">
-                <c:if test="${book.getBook_id().getIsbn() == commandLine.value.getBook().getIsbn()}">
+                <c:if test="${book.getBookId().getIsbn() == commandLine.value.getBook().getIsbn()}">
                     <a href="/DLivres/bookDetails/${commandLine.value.getBook().getIsbn()}">${book.getTranslationTitleOfBook() }</a>
                 </c:if>
             </c:forEach></td>
@@ -35,6 +35,9 @@
     <p><spring:message code="totalPrice"/> : ${totalPrice} €</p>
     <c:if test="${currentUser != null }">
         <a href="/DLivres/cart/confirm"><spring:message code="confirmCommand"/></a>
+    </c:if>
+    <c:if test="${currentUser == null }">
+        <p><spring:message code="mustBeConnected"/></p>
     </c:if>
 </c:if>
 </body>

@@ -4,7 +4,7 @@ public class LanguageTranslationTitleOfBook {
     private Integer languageTranslationTitleOfBook_id;
     private String translationTitleOfBook;
     private CurrentLanguage currentLanguageId;
-    private Book book_id;
+    private Book bookId;
 
     public LanguageTranslationTitleOfBook(){}
     public Integer getLanguageTranslationTitleOfBook_id() {
@@ -25,10 +25,10 @@ public class LanguageTranslationTitleOfBook {
     public void setCurrentLanguageId(CurrentLanguage currentLanguageId) {
         this.currentLanguageId = currentLanguageId;
     }
-    public Book getBook_id() {
-        return book_id;
+    public Book getBookId() {
+        return bookId;
     }
-    public void setBook_id(Book book_id) {
-        this.book_id = book_id;
+    public void setBookId(Book bookId) {
+        this.bookId = bookId;
     }
 }

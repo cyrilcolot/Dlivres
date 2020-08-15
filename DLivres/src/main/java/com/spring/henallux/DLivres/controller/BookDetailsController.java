@@ -20,28 +20,22 @@ import java.util.Locale;
 public class BookDetailsController {
 
 
-    private final MessageSource messageSource;
     @Autowired
     private LanguageTranslationTitleOfBookDAO languageTranslationTitleOfBookDAO;
     @Autowired
     private CategoryDAO categoryDAO;
 
-    @Autowired
-    public BookDetailsController(MessageSource messageSource,LanguageTranslationTitleOfBookDAO languageTranslationTitleOfBookDAO,CategoryDAO categoryDAO)
-    {
-        this.messageSource = messageSource;
-        this.languageTranslationTitleOfBookDAO = languageTranslationTitleOfBookDAO;
-        this.categoryDAO = categoryDAO;
-    }
+
 
 
     @RequestMapping(value = "/{book}", method = RequestMethod.GET)
     public  String displayBookDetails(@PathVariable("book") Integer book_id, Model model, Locale locale)
     {
         LanguageTranslationTitleOfBook titleOfBook = new LanguageTranslationTitleOfBook();
-        titleOfBook = languageTranslationTitleOfBookDAO.getTitleOfBookByIsbn(book_id);
+        titleOfBook = languageTranslationTitleOfBookDAO.getTitleOfBookByIsbn(book_id,locale);
 
-        model.addAttribute("booksPromo", languageTranslationTitleOfBookDAO.getTitleOfBookByLanguage(locale.toString()));
+
+
         model.addAttribute("connectionForm", new ConnectionForm());
         model.addAttribute("addToCartForm", new AddToCartForm());
         model.addAttribute("book", titleOfBook);
@@ -67,9 +61,10 @@ public class BookDetailsController {
         return "integrated:bookDetails";
     }
 
+    //AJOUT AU PANIER
 
     @RequestMapping(value="/send",method=RequestMethod.POST)
-    public String getAddCartFormData (Model model, @ModelAttribute(value="addToCartForm") AddToCartForm form, @ModelAttribute(value="cart") HashMap<Integer, CommandLine> hashMapCommandLine)
+    public String getAddCartFormData (Model model, @ModelAttribute(value="addToCartForm") AddToCartForm form, @ModelAttribute(value="cart") HashMap<Integer, CommandLine> hashMapCommandLine,Locale locale)
     {
 
         Integer quantity;
@@ -83,11 +78,9 @@ public class BookDetailsController {
         else
         {
             quantity = form.getNumberOfBook();
-            lineToAdd.setBook(languageTranslationTitleOfBookDAO.getTitleOfBookByIsbn(form.getIsbn()).getBook_id());
+            lineToAdd.setBook(languageTranslationTitleOfBookDAO.getTitleOfBookByIsbn(form.getIsbn(),locale).getBookId());
 
         }
-
-
         lineToAdd.setQuantity(quantity);
         hashMapCommandLine.put(form.getIsbn(), lineToAdd);
         model.addAttribute("cart", hashMapCommandLine);
@@ -95,5 +88,7 @@ public class BookDetailsController {
 
         return "redirect:/bookDetails/"+form.getIsbn();
     }
+
+
 
 }

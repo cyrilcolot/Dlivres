@@ -1,20 +1,20 @@
 package com.spring.henallux.DLivres.Model;
 
 public class ConnectionForm {
-    private String email;
+    private String userName;
     private String password;
 
     public ConnectionForm() {
     }
 
 
-    public String getEmail() {
-        return email;
+    public String getUserName() {
+        return userName;
     }
 
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 

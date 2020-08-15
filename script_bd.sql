@@ -7,6 +7,7 @@ CREATE TABLE `dlivresdb`.CurrentLanguage(
 );
 CREATE TABLE `dlivresdb`.Customer(
 	Customer_ID integer auto_increment PRIMARY KEY,
+    Username varchar(30) not null,
 	Email varchar(255) NOT NULL UNIQUE,
 	Name varchar(255) NOT NULL,
 	FirstName varchar(255) NOT NULL,
@@ -18,6 +19,11 @@ CREATE TABLE `dlivresdb`.Customer(
 	City varchar(255) NOT NULL,
 	Country varchar(255) NOT NULL,
 	Password varchar(255) NOT NULL
+    Authorities varchar(255) default null,
+	NonExpired boolean not null,
+	NonLocked boolean not null,
+	CredentialNonExpired boolean not null,
+	Enable boolean not null,
 );
 
 CREATE TABLE `dlivresdb`.Author(

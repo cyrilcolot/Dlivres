@@ -1,16 +1,26 @@
 package com.spring.henallux.DLivres.dataAccess.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import static org.springframework.util.StringUtils.isEmpty;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="customer")
-public class CustomerEntity {
+public class CustomerEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="customer_id")
     private Integer customer_id;
+
+    @Column(name="UserName")
+    private String userName;
 
     @Column(name="email")
     private String email;
@@ -44,6 +54,20 @@ public class CustomerEntity {
 
     @Column(name="password")
     private String password;
+    @Column(name = "authorities")
+    private String authorities;
+
+    @Column(name = "nonexpired")
+    private Boolean accountNonExpired;
+
+    @Column(name = "nonlocked")
+    private Boolean accountNonLocked;
+
+    @Column(name = "credentialnonexpired")
+    private Boolean credentialsNonExpired;
+
+    @Column(name = "enabled")
+    private Boolean enabled;
 
     public Integer getCustomer_id() {
         return customer_id;
@@ -143,11 +167,52 @@ public class CustomerEntity {
         return password;
     }
 
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
 
 
+    @Override
+    public Collection<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+
+        if(!isEmpty(authorities)) {
+            String[] authoritiesAsArray = authorities.split(",");
+
+            for(String authority : authoritiesAsArray) {
+                if(!isEmpty(authority)) {
+                    grantedAuthorities.add(new SimpleGrantedAuthority(authority));
+                }
+            }
+        }
+
+        return grantedAuthorities;
+    }
 
 }

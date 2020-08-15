@@ -27,7 +27,7 @@ public interface LanguageTranslationTitleOfBookRepository extends JpaRepository<
     ArrayList<LanguageTranslationTitleOfBookEntity> findByCurrentLanguageId(CurrentLanguageEntity currentLanguage);
 
 
-    LanguageTranslationTitleOfBookEntity findByBookId(Integer bookId);
+    ArrayList<LanguageTranslationTitleOfBookEntity> findByBookId_Isbn(Integer bookId);
 
     ArrayList<LanguageTranslationTitleOfBookEntity> findByBookId_Category_CategoryId(Integer category);
 
