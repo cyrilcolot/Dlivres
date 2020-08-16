@@ -139,24 +139,29 @@ public class CartController {
     @RequestMapping(value = "/orderCompleted",method = RequestMethod.GET)
     public String orderCompleted(Model model,Locale locale,@ModelAttribute(value = "currentUser")Customer customer, @ModelAttribute(value = "cart")HashMap<Integer,CommandLine> cart)
     {
+
         OrderCustomerEntity orderCustomerEntity = new OrderCustomerEntity();
         orderCustomerEntity.setCustomer_id(providerConverter.customerToCustomerEntity(customer));
 
         orderCustomerDAO.saveOrder(orderCustomerEntity);
-        CommandLineEntity commandLineEntity;
 
-        for(CommandLine commandLine : cart.values())
-        {
-            commandLineEntity = new CommandLineEntity();
-            commandLineEntity.setOrderCustomer(orderCustomerEntity);
-            commandLineEntity.setBook(providerConverter.bookToBookEntity(commandLine.getBook()));
-            commandLineEntity.setQuantity(commandLine.getQuantity());
 
-            orderCustomerDAO.saveCommandLine(commandLineEntity);
 
-        }
-        cart.clear();
-        return "redirect:/orderCompleted";
+            for (Map.Entry<Integer, CommandLine> entry : cart.entrySet()) {
+
+                orderCustomerDAO.saveCommandLine(new CommandLineEntity(){
+                    { setQuantity(entry.getValue().getQuantity());
+                        setBook(providerConverter.bookToBookEntity(entry.getValue().getBook()));
+                        setOrderCustomer(orderCustomerEntity);
+                    }
+                });
+
+
+            }
+            cart.clear();
+            return "redirect:/orderCompleted";
+
+
     }
 
 
