@@ -12,18 +12,18 @@ CREATE TABLE `dlivresdb`.Customer(
 	Name varchar(255) NOT NULL,
 	FirstName varchar(255) NOT NULL,
 	PhoneNumber varchar(255),
-	BirthDate date NOT NULL,
+	
 	Street varchar(255) NOT NULL,
 	StreetNumber integer NOT NULL CHECK(StreetNumber > 0),
 	PostalCode integer NOT NULL CHECK (PostalCode > 999),
 	City varchar(255) NOT NULL,
 	Country varchar(255) NOT NULL,
-	Password varchar(255) NOT NULL
+	Password varchar(255) NOT NULL,
     Authorities varchar(255) default null,
 	NonExpired boolean not null,
 	NonLocked boolean not null,
 	CredentialNonExpired boolean not null,
-	Enable boolean not null,
+	Enable boolean not null
 );
 
 CREATE TABLE `dlivresdb`.Author(
@@ -52,7 +52,7 @@ CREATE TABLE `dlivresdb`.Book(
 	Stock integer CHECK(Stock > 0),
 	TypeOfBook varchar(100) NOT NULL,
 	FileSize integer CHECK(FileSize > 0), -- The file size is expressed in KB
-	Ext"ension" varchar(255),
+	Extension varchar(255),
 	Author_PB_ID integer,
 	PublishingHouse_PB__ID integer,
 	Category_PB_ID integer,
@@ -73,8 +73,8 @@ CREATE TABLE `dlivresdb`.CommandLine(
 	Quantity integer NOT NULL,
 	Book_ID integer,
 	OrderCustomer_ID integer,
-	constraint Book_ID_CL_FK FOREIGN KEY(Book_ID) REFERENCES Book(Isbn),
-	constraint OrderCustomer_ID_FK foreign key(OrderCustomer_ID) references OrderCustomer(OrderCustomer_ID)
+	constraint Book_ID_CL_FK FOREIGN KEY(Book_ID) REFERENCES `dlivresdb`.Book(Isbn),
+	constraint OrderCustomer_ID_FK foreign key(OrderCustomer_ID) references `dlivresdb`.OrderCustomer(OrderCustomer_ID)
 );
 
 CREATE TABLE `dlivresdb`.LanguageTranslationTitleOfBook(
@@ -95,18 +95,11 @@ CREATE TABLE `dlivresdb`.LanguageTranslationWordingOfCategory(
 	constraint Category_ID_FK foreign key(Category_ID) references `dlivresdb`.Category(Category_ID)
 	);
 /*-----Insertion----*/
-INSERT INTO `dlivresdb`.CurrentLanguage (currentLanguege_id,NameLanguage)
+INSERT INTO `dlivresdb`.CurrentLanguage (currentLanguage_id,NameLanguage)
 	VALUES
 		("en","English"),
 		("fr","Français");
 
-		/*MDP CRYPTE DONC MIEUX VIA INSCRIPTION */
-
-INSERT INTO `dlivresdb`.Customer (Email, Name, FirstName, PhoneNumber, BirthDate,
-					Street, StreetNumber, PostalCode, City, Country, Password)
-	VALUES
-		("cyrilcolot@hotmail.com", "Colot", "Cyril", "0498778524", "19960115",
-			"Rue du refuge", 6, 5500, "Dinant", "Belgique", "root");
 
 INSERT INTO `dlivresdb`.Author(Name, FirstName)
 	VALUES
@@ -135,97 +128,97 @@ INSERT INTO `dlivresdb`.Category(Category_ID)
 		-- Fanta
 		(3);	
 
-INSERT INTO `dlivresdb`.Book(Isbn, Price, Summary, NumberOfPages, PublicationDate, Height, Width, Thickness, Weight, Stock, TypeOfBook, FileSize, Extension, Author_PB_ID, PublishingHouse_PB_ID,Category_PB_ID)
+INSERT INTO `dlivresdb`.Book(Isbn, Price, Summary, NumberOfPages, PublicationDate, Height, Width, Thickness, Weight, Stock, TypeOfBook, FileSize, Extension, Author_PB_ID, PublishingHouse_PB__ID,Category_PB_ID)
 	VALUES
     
         -- Dune
         
         (22210260, 9.99, "Il n'y a pas, dans tout l'Empire, de planète plus inhospitalière que Dune. Partout des sables à perte de vue. Une seule richesse : l'épice de longue vie, née du désert, et que tout l'univers convoite.",
-        412,"19700322", 1500, 250,200,300,15,"Paper book",null,null,3,1,2);
+        412,"19700322", 1500, 250,200,300,15,"Paper book",null,null,3,1,2),
         
         -- Les pilliers de la terre
         
 		(23698413, 11.90, "Dans l'Angleterre du XIIe siècle ravagée par la guerre et la famine, des êtres luttent chacun à leur manière pour s'assurer le pouvoir, la gloire, la sainteté, l'amour, ou simplement de quoi survivre.",
-        1056,"19920415", 1100, 400,650,400,5,"Paper book",null,null,2,4,1);
+        1056,"19920415", 1100, 400,650,400,5,"Paper book",null,null,2,4,1),
         
 		-- Un monde sans fin 
         
         (23698536, 12.90, "1327. Quatre enfants sont les témoins d’une poursuite meurtrière dans les bois : un chevalier tue deux soldats au service de la reine, avant d’enfouir dans le sol une lettre mystérieuse, dont la teneur pourrait mettre en danger la couronne d’Angleterre. "
-        ,1344,"20100106", 1100, 520,650,400,8,"Paper book",null,null,2,4,1);
+        ,1344,"20100106", 1100, 520,650,400,8,"Paper book",null,null,2,4,1),
         
 		-- Une colonne de feu
 		
         (23698963, 10.90, "Noël 1558, le jeune Ned Willard rentre à Kingsbridge. Il découvre une ville déchirée par la haine religieuse, et se retrouve dans le camp adverse de celle qu'il voulait épouser, Margery Fitzgerald. "
-        ,992,"20100106", 1100, 370,650,400,12,"Paper book",null,null,2,4,1);
+        ,992,"20100106", 1100, 370,650,400,12,"Paper book",null,null,2,4,1),
 		
         -- Le clan des ours des cavernes
          
         (14563698, 9.99, "Quelque part en Europe, 35 000 ans avant notre ère. Petite fille Cro-Magnon de cinq ans, Ayla est séparée de ses parents à la suite d'un violent tremblement de terre. Elle est recueillie par le clan de l'ours des cavernes, une tribu Neandertal.",
-        537,"20101109", null, null,null,null,null,"Ebook",2500,"epub",5,1,1);
+        537,"20101109", null, null,null,null,null,"Ebook",2500,"epub",5,1,1),
         
         -- La Vallée des chevaux
         
         (14563860, 8.40, "Passé la surprise et l'émerveillement suscités par Ayla, la jeune étrangère aux cheveux blonds qu'ils ont recueillie, les hommes du 'clan de l'ours ' ont pris peur de ses dons extraordinaires.",
-        700,"20190123", null, null,null,null,null,"Ebook",2500,"epub",5,1,1);
+        700,"20190123", null, null,null,null,null,"Ebook",2500,"epub",5,1,1),
         
         -- Les chasseurs de mammouths
         
         (1693417, 8.40, "Pendant plusieurs saisons, Ayla et son compagnon Jondalar ont tout partagé. Ils ont taillé le silex, entretenu le feu, chassé le renne et le cerf, construit des abris et des bateaux.",
-        928,"20160211", null, null,null,null,null,"Ebook",2500,"epub",5,1,1);
+        928,"20160211", null, null,null,null,null,"Ebook",2500,"epub",5,1,1),
         
         -- Le grand voyage
     
         (16749463, 7.40, "Ayla et Jondalar poursuivent leur traversée des steppes immenses du continent européen. La femme aux cheveux d'or et le géant blond suscitent le trouble et l'effroi sur leur passage. ",
-        992,"20020418", null, null,null,null,null,"Ebook",3500,"epub",5,1,1);
+        992,"20020418", null, null,null,null,null,"Ebook",3500,"epub",5,1,1),
         
         -- Le pays des grottes sacrées
         
         (16747963, 7.90, "Un an après son arrivée dans la tribu néandertalienne de la Neuvième Caverne, Ayla, la jeune Cro-Magnon, continue son intégration dans la petite communauté. Ses talents de guérisseuse et sa connaissance des animaux impressionnent.",
-        1084,"20120202", null, null,null,null,null,"Ebook",3800,"epub",5,1,1);
+        1084,"20120202", null, null,null,null,null,"Ebook",3800,"epub",5,1,1),
         
         -- Le Seigneur des anneaux 
         
         (23659846, 18.75, "Une contrée paisible où vivent les Hobbits. Un anneau magique à la puissance infinie. Sauron, son créateur, prêt à dévaster le monde entier pour récupérer son bien. Frodon, jeune Hobbit, détenteur de l'Anneau malgré lui.",
-        1600,"20180913", 1290, 62,185,500,25,"Paper book",null ,null ,6,1,3);
+        1600,"20180913", 1290, 62,185,500,25,"Paper book",null ,null ,6,1,3),
         
         -- Le trone de fer intégrales 1
         
         (36987145, 22.00, "Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage.",
-        800,"20190410", 1380, 44,200,500,3,"Paper book",null ,null ,1,2,3);
+        800,"20190410", 1380, 44,200,500,3,"Paper book",null ,null ,1,2,3),
         
         
         -- le trone de fer intégrales 2 
         
         (36987245, 22.00, "Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage.",
-        954,"20190925", 1380, 50,200,500,5,"Paper book",null ,null ,1,2,3)
+        954,"20190925", 1380, 50,200,500,5,"Paper book",null ,null ,1,2,3),
         
         
         -- le trone de fer intégrales 3
         
         (36987321, 23.00, "Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage.",
-        1152,"20191106", 1410, 55,200,500,1,"Paper book",null ,null ,1,2,3);
+        1152,"20191106", 1410, 55,200,500,1,"Paper book",null ,null ,1,2,3),
         
         -- le trone de fer intégrales 4
         
         (36987453, 23.00, "Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage.",
-        896,"20191106", 1380, 50,200,500,4,"Paper book",null ,null ,1,2,3);
+        896,"20191106", 1380, 50,200,500,4,"Paper book",null ,null ,1,2,3),
         
         -- le trone de fer intégrales 5
         
         (36987589, 24.00, "Le royaume des Sept Couronnes est sur le point de connaître son plus terrible hiver : par-delà le Mur qui garde sa frontière nord, une armée de ténèbres se lève, menaçant de tout détruire sur son passage.",
-        1200,"20191106", 1390, 56,200,500,4,"Paper book",null ,null ,1,2,3);
+        1200,"20191106", 1390, 56,200,500,4,"Paper book",null ,null ,1,2,3),
         
       
         
         -- Fondation
         
         (89632214, 7.50, "En ce début de treizième millénaire, l'Empire n'a jamais été aussi puissant, aussi étendu à travers toute la galaxie. C'est dans sa capitale, Trantor, que l'éminent savant Hari Seldon invente la psychohistoire.",
-        416,"20090326", 1800, 1000,100,250,10,"Paper book",null ,null ,4,3,2);
+        416,"20090326", 1800, 1000,100,250,10,"Paper book",null ,null ,4,3,2),
         
         -- Fondation et Empire
         
         (89634598, 8.00, "Tandis que les crises qui secouent l'Empire redoublent de violence et annoncent son effondrement définitif, la Fondation créée par le psychohistorien Hari Seldon pour sauvegarder la civilisation devient de plus en plus puissante.",
-        432,"20090326", 1800, 1100,180,250,10,"Paper book",null ,null ,4,3,2);
+        432,"20090326", 1800, 1100,180,250,10,"Paper book",null ,null ,4,3,2),
         
         -- Seconde Fondation
         

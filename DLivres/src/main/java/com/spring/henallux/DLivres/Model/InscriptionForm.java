@@ -27,9 +27,7 @@ public class InscriptionForm {
     private String firstName;
     @Pattern(regexp="^[0-9]{9,255}$")
     private String phoneNumber;
-    @NotNull
-    @Past
-    private Date birthDate;
+
     @NotNull
     private String street;
     @NotNull
@@ -87,13 +85,7 @@ public class InscriptionForm {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
 
     public String getStreet() {
         return street;

@@ -45,7 +45,7 @@ public class InscriptionController {
     @RequestMapping(method=RequestMethod.GET)
     public String home(Model model, Locale locale)
     {
-        model.addAttribute("booksPromo", languageTranslationTitleOfBookDAO.getTitleOfBookByLanguage(locale.toString()));
+
         ArrayList<LanguageTranslationWordingOfCategory> allCategories = new ArrayList<LanguageTranslationWordingOfCategory>(categoryDAO.getAllCategories());
         ArrayList<LanguageTranslationWordingOfCategory> categoriesToDisplay = new ArrayList<LanguageTranslationWordingOfCategory>();
         for (LanguageTranslationWordingOfCategory languageTranslationWordingOfCategory : allCategories)
@@ -64,21 +64,30 @@ public class InscriptionController {
     }
 
     @RequestMapping(value="/send",method=RequestMethod.POST)
-    public String getSignUpFormData (Model model, @Valid @ModelAttribute(value="inscriptionForm") InscriptionForm formInscription, final BindingResult errors, Locale locale) {
+    public String getSignUpFormData (Model model, @Valid @ModelAttribute(value="inscriptionForm") InscriptionForm formInscription, BindingResult errors, Locale locale) {
 
-        if(!errors.hasErrors()&& formInscription.getPassword().equals(formInscription.getConfirmPassword()))
+        if(errors.hasErrors()|| !formInscription.getPassword().equals(formInscription.getConfirmPassword()))
         {
 
             model.addAttribute("connectionForm", new ConnectionForm());
             model.addAttribute("inscriptionForm", formInscription);
-            model.addAttribute("MessageToDisplay", messageSource.getMessage("titleInscription",null,locale));
+            model.addAttribute("errorMessage","unvalidatedForm");
 
             if(!model.containsAttribute("cart"))
             {
                 HashMap<String , CommandLine> commandLine = new HashMap<String, CommandLine>();
                 model.addAttribute("cart", commandLine);
             }
-
+            ArrayList<LanguageTranslationWordingOfCategory> allCategories = new ArrayList<LanguageTranslationWordingOfCategory>(categoryDAO.getAllCategories());
+            ArrayList<LanguageTranslationWordingOfCategory> categoriesToDisplay = new ArrayList<LanguageTranslationWordingOfCategory>();
+            for (LanguageTranslationWordingOfCategory languageTranslationWordingOfCategory : allCategories)
+            {
+                if(languageTranslationWordingOfCategory.getCurrentLanguageId().getCurrentLanguageId().equals(locale.toString()))
+                {
+                    categoriesToDisplay.add(languageTranslationWordingOfCategory);
+                }
+            }
+            model.addAttribute("categories", categoriesToDisplay);
             return "integrated:inscription";
 
         }
@@ -88,7 +97,7 @@ public class InscriptionController {
             customerEntity.setUsername(formInscription.getUserName());
             customerEntity.setPassword(new BCryptPasswordEncoder().encode(formInscription.getPassword()));
             customerEntity.setEmail(formInscription.getEmail());
-            customerEntity.setBirthDate(formInscription.getBirthDate());
+
             customerEntity.setFirstName(formInscription.getFirstName());
             customerEntity.setName(formInscription.getName());
             customerEntity.setCity(formInscription.getCity());
@@ -107,12 +116,17 @@ public class InscriptionController {
 
 
 
+            try{
+                if(customerDAO.save(customerEntity))
 
-            if(customerDAO.save(customerEntity))
+                    return "redirect:/index";
+                else
+                    return "integrated:inscription";
+            } catch (Exception e){
+                 model.addAttribute("errorMessage", e.getMessage());
+                return "integrated:registration";
+            }
 
-                return "redirect:/index";
-            else
-                return "integrated:inscription";
 
         }
     }

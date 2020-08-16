@@ -105,7 +105,7 @@ public class CartController {
 
 */
     @RequestMapping(value="/confirm", method=RequestMethod.GET)
-    public String confirm (Model model, Locale locale)
+    public String confirm (Model model, Locale locale,@ModelAttribute(value="cart") HashMap<Integer, CommandLine> cart)
     {
         model.addAttribute("booksPromo", languageTranslationTitleOfBookDAO.getTitleOfBookByLanguage(locale.toString()));
         ArrayList<LanguageTranslationWordingOfCategory> allCategories = new ArrayList<LanguageTranslationWordingOfCategory>(categoryDAO.getAllCategories());
@@ -113,7 +113,8 @@ public class CartController {
         model.addAttribute("connectionForm", new ConnectionForm());
         model.addAttribute("MessageToDisplay", messageSource.getMessage("titleCart",null,locale));
 
-
+        totalPrice = orderCustomerService.getTotalOrder(cart);
+        model.addAttribute("totalPrice", totalPrice);
         for (LanguageTranslationWordingOfCategory languageTranslationWordingOfCategory : allCategories)
         {
             if(languageTranslationWordingOfCategory.getCurrentLanguageId().getCurrentLanguageId().equals(locale.toString()))
@@ -141,7 +142,7 @@ public class CartController {
         OrderCustomerEntity orderCustomerEntity = new OrderCustomerEntity();
         orderCustomerEntity.setCustomer_id(providerConverter.customerToCustomerEntity(customer));
 
-        orderCustomerDAO.addOrderCustomer(orderCustomerEntity);
+        orderCustomerDAO.saveOrder(orderCustomerEntity);
         CommandLineEntity commandLineEntity;
 
         for(CommandLine commandLine : cart.values())
@@ -151,8 +152,7 @@ public class CartController {
             commandLineEntity.setBook(providerConverter.bookToBookEntity(commandLine.getBook()));
             commandLineEntity.setQuantity(commandLine.getQuantity());
 
-            commandLineDAO.addCommandeLine(commandLineEntity);
-            
+            orderCustomerDAO.saveCommandLine(commandLineEntity);
 
         }
         cart.clear();

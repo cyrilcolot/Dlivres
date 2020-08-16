@@ -7,6 +7,7 @@ body {
     font-size: 11px;
     color: #ffffff;
     background: #4b4743;
+
 }
 
 a:link, a:visited { color: #e6e154; text-decoration: none; font-weight: bold;}
@@ -75,9 +76,9 @@ form #buy_now_button {
 }
 
 #templatemo_container{
-    width: 1200px;
+    width: 1180px;
     margin: 0 auto;
-    padding: 0 px;
+    padding: 0 10px;
     background: #1c1c1b url(../images/templatemo_bg.jpg) repeat-y;
 }
 
@@ -86,9 +87,9 @@ form #buy_now_button {
 
 #templatemo_menu {
     clear: both;
-    width: 1200px;
+    width: 1190px;
     height: 50px;
-    background: url(../images/templatemo_menu_bg.jpg) no-repeat;
+    background: url(../images/templatemo_menu_bg.jpg) ;
 }
 
 #templatemo_menu ul {
@@ -150,36 +151,7 @@ form #buy_now_button {
     color: #ffffff;
 }
 
-#templatemo_header #templatemo_special_offers {
-    float: left;
-    font-size: 14px;
-    margin-top: 95px;
-    margin-left: 490px;
-    width: 950px;
-}
 
-#templatemo_special_offers a {
-    font-size: 12px;
-}
-
-#templatemo_special_offers  p {
-    margin: 0 0 0 0;
-}
-#templatemo_special_offers p span {
-    font-size: 18px;
-}
-
-
-
-#templatemo_new_books ul {
-    margin: 0 0 10px 0;
-    padding: 0 0 0 20px;
-}
-
-#templatemo_new_books li {
-    margin: 0;
-    padding: 0;
-}
 
 
 /* end of header */
@@ -188,7 +160,7 @@ form #buy_now_button {
 /* content */
 #templatemo_content {
     clear: both;
-    width: 1200px;
+    width: 920px;
     padding: 0 20px;
 }
 
@@ -319,7 +291,7 @@ form #buy_now_button {
 /* footer */
 #templatemo_footer {
     clear: both;
-    width: 1200px;
+    width: 1190px;
     padding: 20px 0px 20px 0;
     text-align: center;
     border-top: 1px solid #25211e;
@@ -346,6 +318,7 @@ form #buy_now_button {
     text-decoration: none;
     color: saddlebrown;
 }
+
 
 #cart {border-collapse: collapse;}
 

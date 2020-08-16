@@ -10,6 +10,7 @@ import com.spring.henallux.DLivres.dataAccess.dao.CurrentLanguageDAO;
 import com.spring.henallux.DLivres.dataAccess.dao.CustomerDAO;
 import com.spring.henallux.DLivres.dataAccess.dao.LanguageTranslationTitleOfBookDAO;
 import com.spring.henallux.DLivres.dataAccess.util.ProviderConverter;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -96,12 +97,18 @@ public class IndexController {
                 model.addAttribute(CURRENTUSER, user);
                 return "redirect:/index";
             }
-            return "integrated:index";
+            else{
+                throw new Exception();
+
+            }
+
+
+
         }
         catch (Exception e)
         {
             model.addAttribute("errorMessage", e.getMessage());
-/*
+
             model.addAttribute("errorLogin",true);
             model.addAttribute("connectionForm", new ConnectionForm());
             model.addAttribute("MessageToDisplay", messageSource.getMessage("title",null,locale));
@@ -122,7 +129,7 @@ public class IndexController {
                 HashMap<String , CommandLine> commandLine = new HashMap<>();
                 model.addAttribute(CART, commandLine);
             }
-*/
+
             return "integrated:index";
         }
     }

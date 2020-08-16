@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface CommandLineRepository  extends JpaRepository<CommandLineEntity,Integer> {
 
+    CommandLineEntity save(CommandLineEntity commandLineEntity);
 }

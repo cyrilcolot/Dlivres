@@ -18,7 +18,7 @@ public class OrderCustomerService {
 
         for (HashMap.Entry<Integer, CommandLine> commandLine : cart.entrySet()) {
 
-            totalPrice += commandLine.getValue().getBook().getPrice();
+            totalPrice += commandLine.getValue().getBook().getPrice() * commandLine.getValue().getQuantity();
 
 
         }

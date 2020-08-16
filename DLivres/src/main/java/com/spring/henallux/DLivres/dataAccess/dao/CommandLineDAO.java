@@ -13,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommandLineDAO {
     @Autowired
     private CommandLineRepository commandLineRepository;
-    @Autowired
-    private ProviderConverter providerConverter;
+
 
     public void addCommandeLine(CommandLineEntity commandLineEntity)
     {

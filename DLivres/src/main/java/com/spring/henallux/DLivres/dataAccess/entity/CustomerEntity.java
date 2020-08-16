@@ -34,8 +34,7 @@ public class CustomerEntity implements UserDetails {
     @Column(name="phonenumber")
     private String phoneNumber;
 
-    @Column(name="birthdate")
-    private Date birthDate;
+
 
     @Column(name="street")
     private String street;
@@ -115,13 +114,6 @@ public class CustomerEntity implements UserDetails {
 
 
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
 
     public String getStreet() {
         return street;

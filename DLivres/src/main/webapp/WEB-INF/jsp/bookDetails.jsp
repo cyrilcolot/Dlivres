@@ -16,7 +16,7 @@
     <h1>${book.getTranslationTitleOfBook()} <span>(<spring:message code="By"/> ${book.getBookId().getAuthor().getName()} ${book.getBookId().getAuthor().getFirstName()}) (${book.getBookId().getTypeOfBook()})</span></h1>
     <div class="image_panel"><img src="../images/${book.getTranslationTitleOfBook()}.jpg" alt="CSS Template" width="100" height="150" /></div>
     <ul>
-        <li><spring:message code="By"/> ${book.getBookId().getAuthor().getName()}</li>
+        <li><spring:message code="By"/> ${book.getBookId().getAuthor().getName()} ${book.getBookId().getAuthor().getFirstName()}</li>
         <li> ${book.getBookId().getPublicationDate().getDate()}/${book.getBookId().getPublicationDate().getMonth()+1}/${book.getBookId().getPublicationDate().getYear()+1900}</li>
         <li><spring:message code="pages"/>: ${book.getBookId().getNumberOfPages()}</li>
         <li>ISBN:  ${book.getBookId().getIsbn()}</li>
@@ -37,6 +37,7 @@
 
 
     <h3>${book.getBookId().getPrice()} € </h3>
+
 
 
 
